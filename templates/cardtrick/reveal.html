@@ -1,0 +1,20 @@
+{% extends "cardtrick/base.html" %}
+
+{% block content %}
+<section class="reveal" id="reveal">
+  <p class="reveal__lead">Your card is&hellip;</p>
+  <div class="reveal__spotlight" id="revealed-card">
+    {% include "cardtrick/_card.html" with card=card extra_class="reveal__card" %}
+  </div>
+  <p class="reveal__success">Three questions. One card. Every time.</p>
+
+  <div class="reveal__actions">
+    <form method="post" action="{% url 'cardtrick:start_game' %}">
+      {% csrf_token %}
+      <button type="submit" class="btn btn--primary">Play Again</button>
+    </form>
+    <a href="{% url 'cardtrick:learn' %}" class="btn btn--ghost">Learn This Trick</a>
+    <a href="{% url 'cardtrick:why' %}" class="btn btn--ghost">&#129300; How did that work?</a>
+  </div>
+</section>
+{% endblock %}

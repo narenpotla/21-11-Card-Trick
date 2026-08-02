@@ -1,0 +1,17 @@
+{% comment %}
+Shared card face: corner pips (top-left, bottom-right rotated) + a large
+center suit glyph, matching a real playing card's layout. Used by
+board.html (per-card, with a stagger index `i`) and reveal.html (the big
+reveal, via `extra_class`).
+{% endcomment %}
+<div class="card{% if card.is_red %} card--red{% endif %}{% if extra_class %} {{ extra_class }}{% endif %}"
+     {% if i is not None %}style="--i:{{ i }}"{% endif %}
+     aria-label="{{ card.rank }} of {{ card.suit }}">
+  <span class="card__corner card__corner--tl">
+    <span class="card__rank">{{ card.rank }}</span><span class="card__pip">{{ card.suit }}</span>
+  </span>
+  <span class="card__center">{{ card.suit }}</span>
+  <span class="card__corner card__corner--br">
+    <span class="card__rank">{{ card.rank }}</span><span class="card__pip">{{ card.suit }}</span>
+  </span>
+</div>

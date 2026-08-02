@@ -1,0 +1,71 @@
+{% extends "cardtrick/base.html" %}
+
+{% block content %}
+<section class="trick-page">
+  <aside class="side-panel side-panel--left">
+    <h2 class="side-panel__title">How to Play</h2>
+    <ol class="how-to">
+      <li class="how-to__item">
+        <span class="how-to__badge" aria-hidden="true">1</span>
+        <span class="how-to__text">Pick any card from the deck and hold it in your mind &mdash; don't say it out loud.</span>
+      </li>
+      <li class="how-to__item">
+        <span class="how-to__badge" aria-hidden="true">2</span>
+        <span class="how-to__text">Look at the three piles and tell me which one your card landed in.</span>
+      </li>
+      <li class="how-to__item">
+        <span class="how-to__badge" aria-hidden="true">3</span>
+        <span class="how-to__text">We'll do that three times. By the last round, I'll know exactly which card you picked.</span>
+      </li>
+    </ol>
+  </aside>
+
+  <div class="board-screen">
+    <div class="round-indicator">
+      <div class="round-dots" aria-hidden="true">
+        {% for active in round_dots %}
+        <span class="round-dots__dot{% if active %} round-dots__dot--active{% endif %}"></span>
+        {% endfor %}
+      </div>
+      <p class="round-indicator__label">Round {{ round_display }} of {{ total_rounds }}</p>
+    </div>
+    <p class="instructions">Which pile is your card in?</p>
+
+    <div class="board" id="board">
+      {% for column in columns %}
+      <div class="column" data-column="{{ forloop.counter0 }}">
+        {% for card in column %}
+        {% include "cardtrick/_card.html" with card=card i=forloop.counter0 %}
+        {% endfor %}
+      </div>
+      {% endfor %}
+    </div>
+
+    <form method="post" action="{% url 'cardtrick:choose_column' %}" class="choice-form">
+      {% csrf_token %}
+      <input type="hidden" name="round_token" value="{{ round_token }}">
+      <div class="choice-buttons">
+        <button type="submit" name="column" value="0" class="chip chip--pile0" aria-label="My card is in pile 1">
+          <span class="chip__face">1</span>
+        </button>
+        <button type="submit" name="column" value="1" class="chip chip--pile1" aria-label="My card is in pile 2">
+          <span class="chip__face">2</span>
+        </button>
+        <button type="submit" name="column" value="2" class="chip chip--pile2" aria-label="My card is in pile 3">
+          <span class="chip__face">3</span>
+        </button>
+      </div>
+    </form>
+
+    <form method="post" action="{% url 'cardtrick:reset_game' %}" class="quit-form">
+      {% csrf_token %}
+      <button type="submit" class="btn btn--ghost">Start over</button>
+    </form>
+  </div>
+
+  <aside class="side-panel side-panel--right">
+    <h2 class="side-panel__title">Fun Fact</h2>
+    <p class="fun-fact">{{ fun_fact }}</p>
+  </aside>
+</section>
+{% endblock %}

@@ -1,0 +1,43 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>{% block title %}21-Card Trick{% endblock %}</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="{% static 'cardtrick/css/style.css' %}?v={{ ASSET_VERSION }}">
+</head>
+<body class="{% block body_class %}page-fit{% endblock %}">
+<div class="rail">
+  <div class="felt">
+    <div class="felt__spotlight" aria-hidden="true"></div>
+    <div class="app">
+      <header class="app__header">
+        <a href="{% url 'cardtrick:index' %}" class="app__title-link">
+          <span class="app__sparkle app__sparkle--left" aria-hidden="true">&#10022;</span>
+          <h1 class="app__title">21 Card Trick</h1>
+          <span class="app__sparkle app__sparkle--right" aria-hidden="true">&#10022;</span>
+        </a>
+        <div class="app__rule" aria-hidden="true"><span></span><i>&#9824;</i><span></span></div>
+      </header>
+
+      {% if messages %}
+      <ul class="messages">
+        {% for message in messages %}
+        <li class="message message--{{ message.tags }}">{{ message }}</li>
+        {% endfor %}
+      </ul>
+      {% endif %}
+
+      <main class="app__main">
+        {% block content %}{% endblock %}
+      </main>
+    </div>
+  </div>
+</div>
+<script src="{% static 'cardtrick/js/interactions.js' %}?v={{ ASSET_VERSION }}" defer></script>
+</body>
+</html>

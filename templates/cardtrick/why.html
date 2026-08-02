@@ -1,0 +1,99 @@
+{% extends "cardtrick/base.html" %}
+
+{% block body_class %}{% endblock %}
+
+{% block content %}
+<section class="info-page">
+  <p class="info-page__kicker">Why Does It Work?</p>
+  <h2 class="info-page__heading">It's actually pretty simple.</h2>
+  <p class="info-page__intro">
+    The trick doesn't guess your card. It slowly narrows down where your
+    card can be until there's only one place left.
+  </p>
+
+  <hr class="divider">
+
+  <div class="why-section">
+    <p class="why-section__eyebrow">&#127924; Before we start</p>
+    <p class="why-section__text">Your card could be anywhere.</p>
+    <div class="range-row">
+      <span class="cell cell--active"></span><span class="cell cell--active"></span><span class="cell cell--active"></span><span class="cell cell--active"></span><span class="cell cell--active"></span><span class="cell cell--active"></span><span class="cell cell--active"></span><span class="cell cell--active"></span><span class="cell cell--active"></span><span class="cell cell--active"></span><span class="cell cell--active"></span><span class="cell cell--active"></span><span class="cell cell--active"></span><span class="cell cell--active"></span><span class="cell cell--active"></span><span class="cell cell--active"></span><span class="cell cell--active"></span><span class="cell cell--active"></span><span class="cell cell--active"></span><span class="cell cell--active"></span><span class="cell cell--active"></span>
+    </div>
+  </div>
+
+  <hr class="divider">
+
+  <div class="why-section">
+    <p class="why-section__eyebrow">&#11015;&#65039; Round 1</p>
+    <p class="why-section__text">
+      You tell me which pile has your card. That pile is always placed in
+      the middle. Now your card can only be somewhere here.
+    </p>
+    <div class="range-row">
+      <span class="cell"></span><span class="cell"></span><span class="cell"></span><span class="cell"></span><span class="cell"></span><span class="cell"></span><span class="cell"></span><span class="cell cell--active"></span><span class="cell cell--active"></span><span class="cell cell--active"></span><span class="cell cell--active"></span><span class="cell cell--active"></span><span class="cell cell--active"></span><span class="cell cell--active"></span><span class="cell"></span><span class="cell"></span><span class="cell"></span><span class="cell"></span><span class="cell"></span><span class="cell"></span><span class="cell"></span>
+    </div>
+    <p class="why-section__caption">Nice! We've already ruled out most of the deck.</p>
+  </div>
+
+  <hr class="divider">
+
+  <div class="why-section">
+    <p class="why-section__eyebrow">&#11015;&#65039; Round 2</p>
+    <p class="why-section__text">Do the exact same thing again. The possible places get even smaller.</p>
+    <div class="range-row">
+      <span class="cell"></span><span class="cell"></span><span class="cell"></span><span class="cell"></span><span class="cell"></span><span class="cell"></span><span class="cell"></span><span class="cell"></span><span class="cell"></span><span class="cell cell--active"></span><span class="cell cell--active"></span><span class="cell cell--active"></span><span class="cell"></span><span class="cell"></span><span class="cell"></span><span class="cell"></span><span class="cell"></span><span class="cell"></span><span class="cell"></span><span class="cell"></span><span class="cell"></span>
+    </div>
+    <p class="why-section__caption">Now there are only a few places left.</p>
+  </div>
+
+  <hr class="divider">
+
+  <div class="why-section">
+    <p class="why-section__eyebrow">&#11015;&#65039; Round 3</p>
+    <p class="why-section__text">One last time. Only one place is left.</p>
+    <div class="range-row range-row--final">
+      <span class="cell cell--final">&#127183;<br>11th</span>
+    </div>
+    <p class="why-section__caption">That's where your card always ends up.</p>
+  </div>
+
+  <hr class="divider">
+
+  <div class="why-section why-section--secret">
+    <p class="why-section__eyebrow">&#10024; That's the secret!</p>
+    <p class="why-section__text">
+      It doesn't matter which pile you choose. The important part is that
+      the chosen pile is always placed in the middle. Every round, your
+      card has fewer possible places to hide. After three rounds&hellip;
+      there's only one place left.
+    </p>
+  </div>
+
+  <details class="math-details">
+    <summary>&#129299; Curious how the math works?</summary>
+    <p>
+      Splitting 21 cards into 3 piles and asking which one your card is in
+      narrows things down by a factor of 3 &mdash; from 21 possibilities to
+      just 7. Every round does that same &divide;3 narrowing again.
+    </p>
+    <p class="math-details__formula">3&sup3; = 27 &nbsp;&ge;&nbsp; 21</p>
+    <p>
+      That's why it takes exactly <strong>3 rounds</strong>, not 2: three
+      rounds of narrowing by 3 gives 3&sup3; = 27 possible outcomes, which is
+      just enough to cover all 21 cards. Two rounds would only give
+      3&sup2; = 9 &mdash; not enough to tell every card apart.
+    </p>
+    <p>
+      And because the pile you choose is always tucked into the exact
+      middle of the reassembled deck, the only card that can survive being
+      "in the middle" three rounds in a row is the exact center of a
+      21-card stack &mdash; the 11th card.
+    </p>
+  </details>
+
+  <div class="info-page__actions">
+    <a href="{% url 'cardtrick:learn' %}" class="btn btn--ghost">&larr; Learn the Trick</a>
+    <a href="{% url 'cardtrick:index' %}" class="btn btn--primary">&#128260; Try Again</a>
+  </div>
+</section>
+{% endblock %}

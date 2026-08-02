@@ -1,0 +1,89 @@
+{% extends "cardtrick/base.html" %}
+
+{% block body_class %}{% endblock %}
+
+{% block content %}
+<section class="info-page">
+  <p class="info-page__kicker">Learn the Trick</p>
+  <h2 class="info-page__heading">Try It with a Real Deck! &#11088;</h2>
+  <p class="info-page__intro">Grab any 21 cards and follow these simple steps.</p>
+
+  <ol class="steps">
+    <li class="step">
+      <div class="step__diagram" aria-hidden="true">
+        <div class="mini-piles">
+          <span class="mini-pile"></span>
+          <span class="mini-pile"></span>
+          <span class="mini-pile"></span>
+        </div>
+      </div>
+      <div class="step__body">
+        <p class="step__number">Step 1</p>
+        <p class="step__heading">Deal the Cards</p>
+        <p class="step__text">Deal all 21 cards into 3 piles. One card at a time.</p>
+      </div>
+    </li>
+
+    <li class="step">
+      <div class="step__diagram" aria-hidden="true">
+        <div class="mini-piles">
+          <span class="mini-pile"></span>
+          <span class="mini-pile mini-pile--marked"></span>
+          <span class="mini-pile"></span>
+        </div>
+      </div>
+      <div class="step__body">
+        <p class="step__number">Step 2</p>
+        <p class="step__heading">Ask Your Friend</p>
+        <p class="step__text">Ask them, &ldquo;Which pile is your card in?&rdquo; Don't ask what the card is.</p>
+      </div>
+    </li>
+
+    <li class="step">
+      <div class="step__diagram" aria-hidden="true">
+        <div class="mini-merge">
+          <span class="mini-pile mini-pile--small"></span>
+          <span class="mini-pile mini-pile--small mini-pile--marked"></span>
+          <span class="mini-pile mini-pile--small"></span>
+          <span class="mini-merge__arrow">&darr;</span>
+          <span class="mini-pile mini-pile--stack"></span>
+        </div>
+      </div>
+      <div class="step__body">
+        <p class="step__number">Step 3</p>
+        <p class="step__heading">Put That Pile in the Middle</p>
+        <p class="step__text">Pick up all three piles. Always place the chosen pile in the middle.</p>
+      </div>
+    </li>
+
+    <li class="step">
+      <div class="step__diagram" aria-hidden="true">
+        <div class="mini-repeat">&#8635; &times; 3</div>
+      </div>
+      <div class="step__body">
+        <p class="step__number">Step 4</p>
+        <p class="step__heading">Do It Again</p>
+        <p class="step__text">Repeat the same steps 2 more times. That's 3 rounds in total.</p>
+      </div>
+    </li>
+
+    <li class="step">
+      <div class="step__diagram" aria-hidden="true">
+        <div class="mini-count">11</div>
+      </div>
+      <div class="step__body">
+        <p class="step__number">Step 5</p>
+        <p class="step__heading">Reveal the Card</p>
+        <p class="step__text">Count down to the 11th card. &#127881; That's their card!</p>
+      </div>
+    </li>
+  </ol>
+
+  <p class="info-page__outro">Now go fool your friends. &#128521;</p>
+
+  <div class="info-page__actions">
+    <a href="{% url 'cardtrick:why' %}" class="btn btn--ghost">&#129300; How did that work?</a>
+    <a href="{% url 'cardtrick:index' %}" class="btn btn--primary">&#128260; Play Again</a>
+  </div>
+</section>
+{% endblock %}

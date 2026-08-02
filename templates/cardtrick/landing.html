@@ -1,0 +1,46 @@
+{% extends "cardtrick/base.html" %}
+
+{% block body_class %}page-fit landing-page{% endblock %}
+
+{% block content %}
+<section class="landing">
+  <svg class="landing__hat" viewBox="0 0 24 24" aria-hidden="true">
+    <path d="M12 2 14.5 9 22 9.6 16.3 14.2 18.1 21.5 12 17.6 5.9 21.5 7.7 14.2 2 9.6 9.5 9Z"/>
+  </svg>
+
+  <p class="landing__kicker">A little card magic</p>
+
+  <div class="landing__description">
+    <p>Think of any card.</p>
+    <p>Don't tell me what it is.</p>
+    <p>I'll find it in just <span class="landing__highlight">3</span> questions.</p>
+  </div>
+
+  <p class="landing__subtitle">No guessing. No cheating.<br>Just a clever little trick.</p>
+
+  <span class="landing__flourish" aria-hidden="true">&#10086;</span>
+
+  <form method="post" action="{% url 'cardtrick:start_game' %}">
+    {% csrf_token %}
+    <button type="submit" class="btn btn--primary btn--start">Start Trick <span aria-hidden="true">&rarr;</span></button>
+  </form>
+
+  <div class="landing__info-row">
+    <span>
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3 5 6v6c0 4.5 3 7.8 7 9 4-1.2 7-4.5 7-9V6z"/></svg>
+      No cheating
+    </span>
+    <span>
+      <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="8.5"/><path d="M12 7.5v5l3.2 3"/></svg>
+      30 seconds
+    </span>
+    <span>
+      <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3.5" y="7" width="11" height="15" rx="1.8" transform="rotate(-9 9 14.5)"/><rect x="8.2" y="4.5" width="11" height="15" rx="1.8"/></svg>
+      21 cards
+    </span>
+  </div>
+
+  <p class="landing__impossible">Sounds impossible?</p>
+  <a href="{% url 'cardtrick:why' %}" class="landing__curious">How does it work? <span aria-hidden="true">&rarr;</span></a>
+</section>
+{% endblock %}
