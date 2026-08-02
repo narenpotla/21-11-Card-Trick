@@ -7,3 +7,4 @@ env/
 .vscode/
 *.class
 .claude/settings.local.json
+staticfiles/

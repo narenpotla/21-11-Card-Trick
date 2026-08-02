@@ -20,6 +20,12 @@ if not ALLOWED_HOSTS:
         "DJANGO_ALLOWED_HOSTS environment variable must be set in production."
     )
 
+STORAGES = {
+    "staticfiles": {
+        "BACKEND": "whitenoise.storage.CompressedManifestStaticFilesStorage",
+    },
+}
+
 SECURE_SSL_REDIRECT = True
 SESSION_COOKIE_SECURE = True
 CSRF_COOKIE_SECURE = True

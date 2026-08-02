@@ -37,6 +37,10 @@ INSTALLED_APPS = [
 
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
+    # Serves collected static files directly from the WSGI process --
+    # no separate static host (S3, Netlify, a CDN) needed for a project
+    # this size. Must sit right after SecurityMiddleware.
+    "whitenoise.middleware.WhiteNoiseMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
     "django.middleware.common.CommonMiddleware",
     "django.middleware.csrf.CsrfViewMiddleware",
@@ -94,5 +98,9 @@ USE_TZ = True
 
 STATIC_URL = "static/"
 STATICFILES_DIRS = [BASE_DIR / "static"]
+# `collectstatic` gathers everything here; WhiteNoise serves straight from it.
+# The compressed/hashed storage backend is prod-only (see prod.py) -- it
+# requires a manifest built by `collectstatic`, which dev never runs.
+STATIC_ROOT = BASE_DIR / "staticfiles"
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
