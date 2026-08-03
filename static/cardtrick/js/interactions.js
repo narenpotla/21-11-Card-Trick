@@ -55,32 +55,44 @@ function playWinSound() {
   setTimeout(() => playTone(1108, 0.28, "sine", 0.06), 230);
 }
 
-/* ---- confetti for the reveal moment ---- */
+/* ---- confetti for the reveal moment ----
+ * One rAF loop drives all particles together, rather than each particle
+ * running its own independent loop -- same visual result, a fraction of
+ * the per-frame scheduling overhead. */
 function spawnConfetti() {
+  const particles = [];
   for (let i = 0; i < CONFETTI_COUNT; i++) {
-    const piece = document.createElement("div");
-    piece.className = "confetti";
-    piece.style.left = `${Math.random() * 100}%`;
-    piece.style.backgroundColor = `hsl(${Math.random() * CONFETTI_COLORS_HUE_RANGE}, 100%, 50%)`;
-
-    const fallSpeed = Math.random() * 2 + 3;
-    let rotation = Math.random() * 360;
-    let top = -10;
-
-    document.body.appendChild(piece);
-
-    const step = () => {
-      top += fallSpeed;
-      rotation += 4;
-      piece.style.transform = `translateY(${top}px) rotate(${rotation}deg)`;
-      if (top < window.innerHeight + 20) {
-        requestAnimationFrame(step);
-      } else {
-        piece.remove();
-      }
-    };
-    requestAnimationFrame(step);
+    const el = document.createElement("div");
+    el.className = "confetti";
+    el.style.left = `${Math.random() * 100}%`;
+    el.style.backgroundColor = `hsl(${Math.random() * CONFETTI_COLORS_HUE_RANGE}, 100%, 50%)`;
+    document.body.appendChild(el);
+    particles.push({
+      el,
+      top: -10,
+      fallSpeed: Math.random() * 2 + 3,
+      rotation: Math.random() * 360,
+    });
   }
+
+  const bottom = window.innerHeight + 20;
+
+  const step = () => {
+    let anyAlive = false;
+    for (const p of particles) {
+      if (p.top >= bottom) continue;
+      p.top += p.fallSpeed;
+      p.rotation += 4;
+      p.el.style.transform = `translateY(${p.top}px) rotate(${p.rotation}deg)`;
+      if (p.top >= bottom) {
+        p.el.remove();
+      } else {
+        anyAlive = true;
+      }
+    }
+    if (anyAlive) requestAnimationFrame(step);
+  };
+  requestAnimationFrame(step);
 }
 
 /* ---- pile selection: animate, then actually submit ---- */

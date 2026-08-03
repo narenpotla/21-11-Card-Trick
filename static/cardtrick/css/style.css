@@ -1149,15 +1149,6 @@ button,
   line-height: 1.7;
 }
 
-.info-page__note {
-  max-width: 56ch;
-  margin: clamp(20px, 4vh, 32px) auto 0;
-  text-align: center;
-  color: var(--text-dim);
-  font-size: 0.95rem;
-  line-height: 1.7;
-}
-
 .info-page__outro {
   margin: clamp(20px, 4vh, 32px) auto 0;
   text-align: center;
