@@ -1,0 +1,83 @@
+/* ============================================================
+   Buttons -- frosted glass, gold on hover
+   ============================================================ */
+.btn {
+  font-family: var(--font-body);
+  font-weight: 600;
+  font-size: 0.95rem;
+  padding: 13px 34px;
+  border-radius: 12px;
+  text-decoration: none;
+  display: inline-block;
+  color: var(--text);
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.14), rgba(255, 255, 255, 0.04));
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  border: 1px solid rgba(255, 255, 255, 0.28);
+  cursor: pointer;
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.35), inset 0 1px 0 rgba(255, 255, 255, 0.25);
+  transition: transform 0.2s var(--ease-premium), box-shadow 0.2s var(--ease-premium), background 0.2s var(--ease-premium), border-color 0.2s;
+}
+
+.btn:hover,
+.btn:focus-visible {
+  background: linear-gradient(180deg, rgba(255, 217, 118, 0.28), rgba(255, 217, 118, 0.08));
+  border-color: var(--gold-line);
+  transform: translateY(-2px);
+  box-shadow: 0 10px 22px rgba(0, 0, 0, 0.4), 0 0 22px rgba(230, 192, 104, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.3);
+}
+
+.btn:active {
+  transform: translateY(1px) scale(0.98);
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.4);
+}
+
+.btn--primary {
+  padding: 15px 44px;
+  font-size: 1.05rem;
+}
+
+/* the landing page's Start button -- softer and quieter than the base
+   gold-glow hover, since this page should feel inviting, not flashy */
+.btn--start {
+  padding: 18px 52px;
+  font-size: 1.1rem;
+  border-radius: 16px;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.16), rgba(255, 255, 255, 0.05));
+  box-shadow: 0 8px 18px rgba(0, 0, 0, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.25);
+}
+
+.btn--start span {
+  display: inline-block;
+  margin-left: 6px;
+  transition: transform 0.2s var(--ease-premium);
+}
+
+.btn--start:hover span {
+  transform: translateX(3px);
+}
+
+.btn--start:hover,
+.btn--start:focus-visible {
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.22), rgba(255, 255, 255, 0.08));
+  border-color: rgba(255, 255, 255, 0.4);
+  transform: translateY(-3px);
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.35), inset 0 1px 0 rgba(255, 255, 255, 0.3);
+}
+
+.btn--ghost {
+  background: rgba(0, 0, 0, 0.15);
+  box-shadow: none;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  color: var(--text-dim);
+  font-size: 0.85rem;
+  padding: 7px 18px;
+}
+
+.btn--ghost:hover {
+  background: rgba(255, 255, 255, 0.08);
+  color: var(--text);
+  border-color: var(--gold-line);
+  transform: none;
+  box-shadow: none;
+}

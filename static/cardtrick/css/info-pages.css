@@ -1,0 +1,295 @@
+/* ============================================================
+   Info pages -- Learn the Trick / Why It Works. These scroll
+   normally (no .page-fit on <body>), so they're free to breathe
+   instead of being squeezed to fit one screen.
+   ============================================================ */
+.info-page {
+  flex: 1 1 auto;
+  max-width: 640px;
+  margin: 0 auto;
+  padding: clamp(10px, 3vh, 24px) 0 clamp(30px, 6vh, 60px);
+  text-align: left;
+}
+
+.info-page__kicker {
+  margin: 0 0 6px;
+  font-family: var(--font-plaque);
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  font-size: 0.75rem;
+  color: var(--gold);
+  text-align: center;
+}
+
+.info-page__heading {
+  margin: 0 0 14px;
+  font-family: var(--font-title);
+  font-weight: 600;
+  font-size: clamp(1.3rem, 4vw, 1.8rem);
+  line-height: 1.3;
+  text-align: center;
+  color: var(--text);
+}
+
+.info-page__intro {
+  margin: 0 auto clamp(24px, 5vh, 40px);
+  max-width: 52ch;
+  text-align: center;
+  color: var(--text-dim);
+  font-size: 1rem;
+  line-height: 1.7;
+}
+
+.info-page__outro {
+  margin: clamp(20px, 4vh, 32px) auto 0;
+  text-align: center;
+  color: var(--text);
+  font-weight: 600;
+  font-size: 1.05rem;
+}
+
+.info-page__actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 10px;
+  margin-top: clamp(24px, 5vh, 40px);
+}
+
+/* ---- Learn the Trick: numbered steps with a tiny diagram each ---- */
+.steps {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.step {
+  display: flex;
+  align-items: center;
+  gap: clamp(16px, 4vw, 28px);
+  padding: 16px 4px;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.step:first-child {
+  border-top: none;
+}
+
+.step__diagram {
+  flex: 0 0 auto;
+  width: 64px;
+  height: 64px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.step__number {
+  margin: 0 0 4px;
+  font-family: var(--font-plaque);
+  font-size: 0.7rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--gold);
+}
+
+.step__heading {
+  margin: 0 0 4px;
+  color: var(--text);
+  font-weight: 700;
+  font-size: 1.05rem;
+}
+
+.step__text {
+  margin: 0;
+  color: var(--text-dim);
+  font-size: 0.95rem;
+  line-height: 1.5;
+}
+
+.mini-piles,
+.mini-merge {
+  display: flex;
+  align-items: flex-end;
+  gap: 4px;
+}
+
+.mini-pile {
+  width: 12px;
+  height: 30px;
+  border-radius: 3px;
+  background: var(--cream);
+  opacity: 0.85;
+}
+
+.mini-pile--marked {
+  background: var(--gold-bright);
+  opacity: 1;
+}
+
+.mini-pile--small {
+  height: 18px;
+}
+
+.mini-pile--stack {
+  height: 30px;
+  width: 16px;
+}
+
+.mini-merge {
+  flex-wrap: wrap;
+  justify-content: center;
+  width: 60px;
+}
+
+.mini-merge__arrow {
+  width: 100%;
+  text-align: center;
+  color: var(--gold);
+  font-size: 0.8rem;
+  margin: 2px 0;
+}
+
+.mini-repeat,
+.mini-count {
+  font-family: var(--font-plaque);
+  font-weight: 600;
+  color: var(--gold);
+  font-size: 1.1rem;
+}
+
+.mini-count {
+  width: 40px;
+  height: 40px;
+  border-radius: 8px;
+  background: var(--cream);
+  color: var(--ink);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.2rem;
+  box-shadow: 0 0 0 2px var(--gold-bright);
+}
+
+/* ---- Why It Works: section dividers + shrinking-range diagram ---- */
+.divider {
+  border: none;
+  border-top: 1px solid rgba(255, 255, 255, 0.12);
+  max-width: 56ch;
+  margin: clamp(20px, 4vh, 32px) auto;
+}
+
+.why-section {
+  max-width: 56ch;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  text-align: center;
+}
+
+.why-section__eyebrow {
+  margin: 0;
+  font-family: var(--font-plaque);
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  font-size: 0.85rem;
+  color: var(--gold);
+}
+
+.why-section__text {
+  margin: 0;
+  color: var(--text);
+  font-size: 0.98rem;
+  line-height: 1.6;
+}
+
+.why-section__caption {
+  margin: 0;
+  color: var(--text-dim);
+  font-size: 0.85rem;
+  font-style: italic;
+}
+
+.why-section--secret .why-section__eyebrow {
+  font-size: 1rem;
+}
+
+.range-row {
+  display: flex;
+  gap: 3px;
+  flex-wrap: wrap;
+  justify-content: center;
+  max-width: 100%;
+}
+
+.cell {
+  width: 12px;
+  height: 22px;
+  border-radius: 3px;
+  background: rgba(255, 255, 255, 0.12);
+  transition: background 0.4s var(--ease-premium);
+}
+
+.cell--active {
+  background: var(--gold-bright);
+}
+
+.range-row--final {
+  gap: 0;
+}
+
+.cell--final {
+  width: 64px;
+  height: 78px;
+  border-radius: 10px;
+  background: var(--cream);
+  color: var(--ink);
+  font-family: var(--font-plaque);
+  font-weight: 700;
+  font-size: 0.95rem;
+  line-height: 1.5;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 0 0 2px var(--gold-bright);
+}
+
+/* ---- Show the math ---- */
+.math-details {
+  max-width: 56ch;
+  margin: clamp(24px, 4vh, 36px) auto 0;
+  padding: 14px 18px;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  border-radius: 10px;
+  background: rgba(0, 0, 0, 0.12);
+}
+
+.math-details summary {
+  cursor: pointer;
+  font-weight: 600;
+  color: var(--gold);
+  font-size: 0.9rem;
+}
+
+.math-details p {
+  color: var(--text-dim);
+  font-size: 0.88rem;
+  line-height: 1.7;
+}
+
+.math-details__formula {
+  text-align: center;
+  font-family: var(--font-plaque);
+  color: var(--gold-bright) !important;
+  font-weight: 700;
+  font-size: 1.2rem !important;
+  letter-spacing: 0.04em;
+  margin: 12px 0 !important;
+}

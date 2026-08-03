@@ -1,0 +1,110 @@
+/* ============================================================
+   Reveal -- flip, glow, sparkle
+   ============================================================ */
+.reveal {
+  flex: 1 1 auto;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: clamp(14px, 3.5vh, 26px);
+}
+
+.reveal__lead {
+  font-family: var(--font-plaque);
+  font-size: clamp(1rem, 2.6vh, 1.3rem);
+  letter-spacing: 0.05em;
+  color: var(--text-dim);
+}
+
+.reveal__spotlight {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: clamp(14px, 3vh, 30px);
+}
+
+.reveal__spotlight::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(255, 246, 214, 0.5), transparent 65%);
+  animation: spotlight-pulse 2.4s ease-in-out infinite;
+  pointer-events: none;
+}
+
+@keyframes spotlight-pulse {
+  0%, 100% { opacity: 0.55; transform: scale(0.94); }
+  50% { opacity: 0.95; transform: scale(1.06); }
+}
+
+.reveal__card {
+  height: clamp(160px, 36vh, 260px);
+  max-height: 260px;
+  font-size: clamp(0.85rem, 2.6vh, 1.3rem);
+  border-radius: 20px;
+  border: 1px solid rgba(230, 192, 104, 0.6);
+  box-shadow:
+    0 1px 0 rgba(255, 255, 255, 0.9) inset,
+    0 -4px 8px rgba(0, 0, 0, 0.12) inset,
+    0 0 0 3px var(--gold-bright),
+    0 0 26px rgba(255, 217, 118, 0.5),
+    0 16px 34px rgba(0, 0, 0, 0.5);
+  opacity: 0;
+  transform: scale(0.35) rotateY(180deg);
+  animation: reveal-pop 0.75s var(--ease-premium) forwards;
+  animation-delay: 0.15s;
+}
+
+@keyframes reveal-pop {
+  to {
+    opacity: 1;
+    transform: scale(1) rotateY(0deg);
+  }
+}
+
+.reveal__success {
+  margin: 0;
+  font-size: 0.9rem;
+  color: var(--text-dim);
+}
+
+.reveal__actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 10px;
+}
+
+/* ============================================================
+   Confetti (spawned by JS)
+   ============================================================ */
+.confetti {
+  position: fixed;
+  top: -10px;
+  width: 8px;
+  height: 8px;
+  z-index: 999;
+  opacity: 0.9;
+  pointer-events: none;
+  border-radius: 1px;
+}
+
+button,
+.column {
+  cursor: pointer;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .card,
+  .reveal__card,
+  .reveal__spotlight::before,
+  .chip__ring {
+    animation: none;
+    opacity: 1;
+    transform: none;
+  }
+}

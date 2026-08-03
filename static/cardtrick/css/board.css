@@ -1,0 +1,418 @@
+/* ============================================================
+   Trick page -- cards centered, two quiet side panels use the
+   space that would otherwise just be empty felt.
+   ============================================================ */
+.trick-page {
+  flex: 1 1 auto;
+  min-height: 0;
+  display: grid;
+  grid-template-columns: minmax(0, 1.25fr) minmax(0, 2.3fr) minmax(0, 1.25fr);
+  align-items: stretch;
+  gap: clamp(10px, 3vw, 36px);
+}
+
+.side-panel {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 10px;
+  padding: 0 clamp(4px, 1vw, 10px);
+  text-align: left;
+  color: var(--text-dim);
+}
+
+.side-panel__title {
+  margin: 0 0 4px;
+  font-family: var(--font-plaque);
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  font-size: clamp(0.85rem, 2vh, 1rem);
+  color: var(--gold);
+}
+
+.how-to {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: clamp(14px, 2.4vh, 22px);
+}
+
+.how-to__item {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+}
+
+.how-to__badge {
+  flex: 0 0 auto;
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  border: 1.5px solid var(--gold-line);
+  color: var(--gold-bright);
+  font-family: var(--font-plaque);
+  font-weight: 700;
+  font-size: 0.9rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.how-to__text {
+  font-size: clamp(0.95rem, 2.1vh, 1.1rem);
+  line-height: 1.55;
+  color: var(--text);
+}
+
+.side-panel--right {
+  text-align: right;
+  align-items: flex-end;
+}
+
+.fun-fact {
+  margin: 0;
+  max-width: 26ch;
+  font-size: clamp(0.95rem, 2.1vh, 1.1rem);
+  line-height: 1.55;
+  color: var(--text);
+}
+
+/* panels step aside on narrow viewports -- the board keeps its
+   full fit-to-viewport centered layout, unchanged */
+@media (max-width: 860px) {
+  .trick-page {
+    grid-template-columns: 1fr;
+  }
+
+  .side-panel {
+    display: none;
+  }
+}
+
+.board-screen {
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.round-indicator {
+  flex: 0 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  margin: 0 0 clamp(4px, 1vh, 10px);
+}
+
+.round-dots {
+  display: flex;
+  gap: 8px;
+}
+
+.round-dots__dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.3);
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  transition: all 0.3s var(--ease-premium);
+}
+
+.round-dots__dot--active {
+  background: var(--gold-bright);
+  border-color: var(--gold-bright);
+  box-shadow: 0 0 10px rgba(255, 217, 118, 0.85);
+  transform: scale(1.25);
+}
+
+.round-indicator__label {
+  margin: 0;
+  font-family: var(--font-plaque);
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  font-size: clamp(0.65rem, 1.5vh, 0.8rem);
+  color: var(--gold-bright);
+  text-shadow: 0 0 12px rgba(255, 217, 118, 0.4);
+}
+
+.instructions {
+  flex: 0 0 auto;
+  color: var(--text);
+  font-size: clamp(0.95rem, 2.4vh, 1.15rem);
+  font-weight: 600;
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.35);
+  margin: 0 0 clamp(8px, 1.8vh, 22px);
+}
+
+/* ============================================================
+   Board / glass columns
+   ============================================================ */
+.board {
+  flex: 1 1 auto;
+  min-height: 0;
+  display: flex;
+  justify-content: center;
+  gap: clamp(8px, 2.5vw, 24px);
+  margin: 0 auto clamp(10px, 2vh, 22px);
+  perspective: 1200px;
+}
+
+.column {
+  flex: 0 1 auto;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--card-gap);
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  border-radius: 22px;
+  padding: clamp(4px, 1vh, 10px) clamp(4px, 1.5vw, 10px);
+  min-width: 64px;
+  background: linear-gradient(160deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.02));
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.15), inset 0 -6px 18px rgba(0, 0, 0, 0.15);
+  cursor: pointer;
+  transition: border-color 0.3s var(--ease-premium), background 0.3s var(--ease-premium), box-shadow 0.3s var(--ease-premium), transform 0.3s var(--ease-premium), opacity 0.3s var(--ease-premium);
+}
+
+.column:hover {
+  border-color: var(--gold-line);
+  background: linear-gradient(160deg, rgba(255, 217, 118, 0.14), rgba(255, 255, 255, 0.03));
+  box-shadow: 0 0 0 1px rgba(230, 192, 104, 0.3), 0 8px 22px rgba(0, 0, 0, 0.25), inset 0 1px 0 rgba(255, 255, 255, 0.2);
+}
+
+/* selected/fading states, toggled briefly by JS right before submit --
+   one calm settle-in, not an infinite pulse */
+.column.is-selected {
+  border-color: var(--gold-bright);
+  background: linear-gradient(160deg, rgba(255, 217, 118, 0.18), rgba(255, 255, 255, 0.04));
+  transform: scale(1.03);
+  box-shadow:
+    0 0 0 1.5px var(--gold-bright),
+    0 0 18px rgba(255, 217, 118, 0.35),
+    0 10px 20px rgba(0, 0, 0, 0.3);
+  z-index: 2;
+}
+
+.column.is-fading {
+  opacity: 0.4;
+  transform: scale(0.98);
+}
+
+.column.is-selected .card {
+  transform: translateY(-10px) rotate(0deg) !important;
+  box-shadow:
+    0 1px 0 rgba(255, 255, 255, 0.95) inset,
+    0 -3px 5px rgba(0, 0, 0, 0.12) inset,
+    0 0 16px rgba(255, 217, 118, 0.6),
+    0 14px 20px rgba(0, 0, 0, 0.4);
+}
+
+/* ============================================================
+   Cards -- larger, deeper shadow, hover lift + tilt
+   ============================================================ */
+.card {
+  position: relative;
+  height: calc((100% - 6 * var(--card-gap)) / 7);
+  max-height: 148px;
+  aspect-ratio: 5 / 7;
+  width: auto;
+  max-width: 106px;
+  font-size: clamp(0.5rem, 1.8vh, 1rem);
+  background: linear-gradient(160deg, #ffffff, var(--cream) 100%);
+  color: var(--ink);
+  border: 1px solid rgba(230, 192, 104, 0.5);
+  border-radius: clamp(6px, 1vh, 12px);
+  box-shadow:
+    0 1px 0 rgba(255, 255, 255, 0.9) inset,
+    0 -3px 5px rgba(0, 0, 0, 0.12) inset,
+    0 3px 3px rgba(0, 0, 0, 0.25),
+    0 8px 14px rgba(0, 0, 0, 0.4);
+  opacity: 0;
+  transform: translateY(-52px) rotate(-10deg);
+  animation: deal-in 0.55s var(--ease-premium) forwards;
+  animation-delay: calc(var(--col-delay, 0ms) + var(--i, 0) * var(--stagger-step));
+  overflow: hidden;
+  transition: transform 0.25s var(--ease-premium), box-shadow 0.25s var(--ease-premium);
+  cursor: pointer;
+}
+
+.card:hover {
+  transform: translateY(-8px) scale(1.03) rotate(-2deg);
+  box-shadow:
+    0 1px 0 rgba(255, 255, 255, 0.95) inset,
+    0 -3px 5px rgba(0, 0, 0, 0.12) inset,
+    0 4px 6px rgba(0, 0, 0, 0.3),
+    0 16px 26px rgba(0, 0, 0, 0.45),
+    0 0 20px rgba(255, 217, 118, 0.4);
+}
+
+/* subtle paper grain, painted under the pip content */
+.card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='60' height='60'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.5'/%3E%3C/svg%3E");
+  background-size: 60px 60px;
+  mix-blend-mode: multiply;
+  opacity: 0.05;
+  pointer-events: none;
+}
+
+.column[data-column="0"] .card { --col-delay: 0ms; }
+.column[data-column="1"] .card { --col-delay: var(--col-stagger-step); }
+.column[data-column="2"] .card { --col-delay: calc(var(--col-stagger-step) * 2); }
+
+.card__corner {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  line-height: 1;
+  font-weight: 700;
+  font-size: 0.72em;
+}
+
+.card__corner--tl {
+  top: 6%;
+  left: 9%;
+}
+
+.card__corner--br {
+  bottom: 6%;
+  right: 9%;
+  transform: rotate(180deg);
+}
+
+.card__pip {
+  font-size: 0.9em;
+  margin-top: 1px;
+}
+
+.card__center {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.9em;
+  opacity: 0.85;
+}
+
+.card--red {
+  color: var(--wine);
+}
+
+@keyframes deal-in {
+  to {
+    opacity: 1;
+    transform: translateY(0) rotate(0deg);
+  }
+}
+
+/* ============================================================
+   Choice buttons -- poker chips, premium hover/press
+   ============================================================ */
+.choice-form {
+  flex: 0 0 auto;
+  margin: 0 0 clamp(6px, 1.4vh, 16px);
+}
+
+.choice-buttons {
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  gap: clamp(12px, 3.5vw, 32px);
+}
+
+.chip {
+  --chip-color: var(--chip-red);
+  --chip-color-dark: var(--chip-red-dark);
+  --chip-size: clamp(46px, 8.5vh, 84px);
+  position: relative;
+  width: var(--chip-size);
+  height: var(--chip-size);
+  border-radius: 50%;
+  padding: 0;
+  border: none;
+  cursor: pointer;
+  background:
+    repeating-conic-gradient(
+      var(--cream) 0deg 18deg,
+      var(--chip-color) 18deg 36deg
+    );
+  box-shadow:
+    0 5px 0 var(--chip-color-dark),
+    0 9px 14px rgba(0, 0, 0, 0.5),
+    inset 0 0 0 3px rgba(0, 0, 0, 0.25);
+  transition: transform 0.22s var(--ease-premium), box-shadow 0.22s var(--ease-premium), filter 0.22s var(--ease-premium);
+}
+
+.chip--pile0 { --chip-color: var(--chip-red); --chip-color-dark: var(--chip-red-dark); }
+.chip--pile1 { --chip-color: var(--chip-black); --chip-color-dark: var(--chip-black-dark); }
+.chip--pile2 { --chip-color: var(--chip-blue); --chip-color-dark: var(--chip-blue-dark); }
+
+.chip__face {
+  position: absolute;
+  inset: 14%;
+  border-radius: 50%;
+  background:
+    radial-gradient(circle at 32% 26%, rgba(255, 255, 255, 0.65), transparent 55%),
+    var(--chip-color);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-plaque);
+  font-weight: 700;
+  font-size: clamp(0.9rem, 3.2vh, 1.6rem);
+  color: var(--text);
+  box-shadow: inset 0 2px 5px rgba(0, 0, 0, 0.4), inset 0 -2px 4px rgba(0, 0, 0, 0.25);
+}
+
+.chip:hover,
+.chip:focus-visible {
+  transform: translateY(-4px) scale(1.06);
+  filter: brightness(1.08);
+  box-shadow:
+    0 9px 0 var(--chip-color-dark),
+    0 14px 18px rgba(0, 0, 0, 0.5),
+    inset 0 0 0 3px rgba(0, 0, 0, 0.25);
+}
+
+.chip:active,
+.chip.is-pressed {
+  transform: translateY(2px) scale(0.96) rotate(0deg);
+  box-shadow:
+    0 2px 0 var(--chip-color-dark),
+    0 4px 8px rgba(0, 0, 0, 0.45),
+    inset 0 0 0 3px rgba(0, 0, 0, 0.25);
+}
+
+.chip__ring {
+  position: absolute;
+  inset: -6px;
+  border-radius: 50%;
+  border: 2px solid var(--gold-bright);
+  opacity: 0;
+  pointer-events: none;
+}
+
+.chip__ring.is-active {
+  animation: chip-ring-expand 0.6s var(--ease-premium) forwards;
+}
+
+@keyframes chip-ring-expand {
+  0% { opacity: 0.9; transform: scale(0.7); }
+  100% { opacity: 0; transform: scale(1.9); }
+}
+
+.quit-form {
+  flex: 0 0 auto;
+}

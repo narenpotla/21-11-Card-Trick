@@ -1,0 +1,184 @@
+/* ============================================================
+   Landing -- has slack space, so just center it
+   ============================================================ */
+.landing {
+  position: relative;
+  flex: 1 1 auto;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: clamp(10px, 1.8vh, 18px);
+}
+
+.landing__hat {
+  width: 28px;
+  height: 28px;
+  fill: var(--gold-bright);
+  stroke: none;
+  filter: drop-shadow(0 0 6px rgba(255, 217, 118, 0.5));
+  margin-bottom: 4px;
+}
+
+.landing__kicker {
+  margin: 0 0 6px;
+  color: var(--gold);
+  font-family: var(--font-plaque);
+  font-style: italic;
+  font-weight: 500;
+  font-size: 0.9rem;
+  letter-spacing: 0.04em;
+}
+
+.landing__description {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  margin: 0;
+}
+
+.landing__description p {
+  margin: 0;
+  color: var(--text);
+  font-size: clamp(1.05rem, 2.8vh, 1.35rem);
+  font-weight: 500;
+  line-height: 1.5;
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+}
+
+.landing__highlight {
+  color: var(--gold-bright);
+  font-weight: 700;
+}
+
+.landing__subtitle {
+  margin: 6px 0 0;
+  color: var(--text-dim);
+  font-size: 0.85rem;
+  line-height: 1.5;
+}
+
+.landing__flourish {
+  margin-top: 8px;
+  color: var(--gold-line);
+  font-size: 0.75rem;
+}
+
+.landing form {
+  margin-top: clamp(6px, 1.2vh, 12px);
+}
+
+.landing__info-row {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  gap: 0;
+  margin-top: clamp(4px, 1vh, 10px);
+  font-size: 0.8rem;
+  letter-spacing: 0.01em;
+  color: var(--text-dim);
+}
+
+.landing__info-row span {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 0 clamp(8px, 1.8vw, 14px);
+}
+
+.landing__info-row svg {
+  width: 14px;
+  height: 14px;
+  fill: none;
+  stroke: var(--gold);
+  stroke-width: 1.6;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  opacity: 0.85;
+  flex: 0 0 auto;
+}
+
+.landing__info-row span:not(:last-child) {
+  border-right: 1px solid rgba(255, 255, 255, 0.15);
+}
+
+.landing__impossible {
+  margin: 4px 0 0;
+  color: var(--text-dim);
+  font-style: italic;
+  font-size: 0.85rem;
+}
+
+.landing__curious {
+  color: var(--gold);
+  font-size: 0.9rem;
+  font-weight: 500;
+  text-decoration: none;
+  border-bottom: 1px solid transparent;
+  transition: border-color 0.2s, color 0.2s;
+}
+
+.landing__curious span {
+  display: inline-block;
+  transition: transform 0.2s var(--ease-premium);
+}
+
+.landing__curious:hover span {
+  transform: translateX(3px);
+}
+
+.landing__curious:hover {
+  color: var(--text);
+  border-bottom-color: var(--gold-line);
+}
+
+/* subtle fan of cards behind the title -- landing page only, barely visible */
+.landing-page .app__header {
+  position: relative;
+}
+
+.landing-page .app__header::before {
+  content: "\1F0A1 \1F0B1 \1F0C1";
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%) rotate(-6deg);
+  font-size: clamp(2.5rem, 8vw, 4.5rem);
+  letter-spacing: 0.3em;
+  color: var(--cream);
+  opacity: 0.06;
+  white-space: nowrap;
+  pointer-events: none;
+  z-index: -1;
+}
+
+/* fade + slight upward settle on load -- landing page only */
+.landing-page .app__title,
+.landing-page .landing > * {
+  animation: fade-in-up 0.6s var(--ease-premium) both;
+}
+
+.landing-page .app__title { animation-delay: 0s; }
+.landing-page .landing__hat { animation-delay: 0.06s; }
+.landing-page .landing__kicker { animation-delay: 0.12s; }
+.landing-page .landing__description { animation-delay: 0.18s; }
+.landing-page .landing__subtitle { animation-delay: 0.24s; }
+.landing-page .landing__flourish { animation-delay: 0.3s; }
+.landing-page .landing form { animation-delay: 0.36s; }
+.landing-page .landing__info-row { animation-delay: 0.42s; }
+.landing-page .landing__impossible { animation-delay: 0.48s; }
+.landing-page .landing__curious { animation-delay: 0.54s; }
+
+@keyframes fade-in-up {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .landing-page .app__title,
+  .landing-page .landing > * {
+    animation: none;
+  }
+}

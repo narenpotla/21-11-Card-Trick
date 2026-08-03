@@ -1,0 +1,39 @@
+name: Tests
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+          cache: "pip"
+
+      - run: pip install -r requirements.txt
+
+      - name: Run test suite
+        env:
+          DJANGO_SETTINGS_MODULE: config.settings.dev
+        run: python manage.py test cardtrick -v 2
+
+      - name: Django system check
+        env:
+          DJANGO_SETTINGS_MODULE: config.settings.dev
+        run: python manage.py check
+
+      - name: Deployment check (prod settings)
+        env:
+          DJANGO_SETTINGS_MODULE: config.settings.prod
+          DJANGO_SECRET_KEY: ci-only-key-not-used-in-production-1234567890
+          DJANGO_ALLOWED_HOSTS: localhost
+        run: |
+          python manage.py collectstatic --noinput
+          python manage.py check --deploy

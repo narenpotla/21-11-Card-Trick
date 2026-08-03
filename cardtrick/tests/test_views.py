@@ -146,3 +146,27 @@ class GameFlowTests(TestCase):
         self.client.get(reverse("cardtrick:index"))
         response = self.client.post(reverse("cardtrick:start_game"), {})
         self.assertEqual(response.status_code, 403)
+
+
+class StaticPageTests(TestCase):
+    """The Learn/Why pages are static (no session), but that's exactly
+    the kind of view where a broken template or bad reverse() goes
+    unnoticed without a test -- "nothing to test" is how regressions
+    like that slip through."""
+
+    def test_learn_page_renders(self):
+        response = self.client.get(reverse("cardtrick:learn"))
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, "cardtrick/learn.html")
+        self.assertContains(response, "Deal the Cards")
+
+    def test_why_page_renders(self):
+        response = self.client.get(reverse("cardtrick:why"))
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, "cardtrick/why.html")
+        self.assertContains(response, "11th")
+
+    def test_static_pages_link_back_to_the_game(self):
+        for url_name in ("cardtrick:learn", "cardtrick:why"):
+            response = self.client.get(reverse(url_name))
+            self.assertContains(response, reverse("cardtrick:index"))

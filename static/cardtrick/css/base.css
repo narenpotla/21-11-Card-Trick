@@ -1,0 +1,308 @@
+/* ============================================================
+   Design tokens
+   ============================================================ */
+:root {
+  /* wood rail -- dark walnut */
+  --wood-dark: #2c1a0f;
+  --wood: #4a2c18;
+  --wood-light: #6e4525;
+  --wood-highlight: #93643a;
+
+  /* felt -- dark emerald center, darker vignette edge */
+  --felt-bright: #0f8a4c;
+  --felt-mid: #0b7a43;
+  --felt-dark: #044528;
+
+  /* gold */
+  --gold: #e6c068;
+  --gold-bright: #ffd976;
+  --gold-deep: #a97d2e;
+  --gold-line: rgba(230, 192, 104, 0.55);
+
+  /* title gold -- stays in the bright gold/amber band the whole way down */
+  --title-gold-hi: #fff6df;
+  --title-gold-top: #ffd976;
+  --title-gold-mid: #e6c068;
+  --title-gold-bottom: #cf9f45;
+  --title-gold-low: #b3822f;
+
+  /* chips */
+  --chip-red: #e21b34;
+  --chip-red-dark: #8f0f1f;
+  --chip-black: #141414;
+  --chip-black-dark: #000;
+  --chip-blue: #1f5fe0;
+  --chip-blue-dark: #0d3487;
+
+  --cream: #fff8ed;
+  --text: #ffffff;
+  --text-dim: #e7dcc4;
+  --ink: #1c140a;
+  --wine: #9c1830;
+
+  --font-title: 'Cinzel', 'Georgia', serif;
+  --font-plaque: 'Cinzel', 'Georgia', serif;
+  --font-body: 'Inter', 'Segoe UI', sans-serif;
+
+  --stagger-step: 70ms;
+  --col-stagger-step: 200ms;
+  --card-gap: 6px;
+  --ease-premium: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+* {
+  box-sizing: border-box;
+  min-width: 0;
+}
+
+body {
+  margin: 0;
+  width: 100%;
+  min-height: 100vh;
+  min-height: 100dvh;
+  font-family: var(--font-body);
+  color: var(--text);
+  overflow-wrap: break-word;
+  background: var(--wood-dark);
+  display: flex;
+  cursor: default;
+}
+
+/* Game screens (landing/board/reveal) pin exactly to the viewport with no
+   scroll -- the .page-fit class (set by base.html's body_class block) is
+   what makes that happen. The two content pages (learn/why) omit it, so
+   they fall back to normal document flow and scroll like an ordinary page. */
+body.page-fit {
+  height: 100vh;
+  height: 100dvh;
+  overflow: hidden;
+}
+
+/* ============================================================
+   Rail (walnut frame, full-bleed) -> Felt (table) -> App (content)
+   Lighting is biased top-left throughout, like a single overhead
+   spotlight -- every surface gets a highlight on its lit edge and
+   a deeper shadow on the opposite edge.
+   ============================================================ */
+.rail {
+  width: 100%;
+  min-height: 100vh;
+  margin: 0;
+  padding: clamp(10px, 1.8vh, 26px);
+  background:
+    repeating-linear-gradient(60deg, rgba(230, 192, 104, 0.05) 0 1px, transparent 1px 26px),
+    repeating-linear-gradient(-60deg, rgba(230, 192, 104, 0.05) 0 1px, transparent 1px 26px),
+    repeating-linear-gradient(100deg, rgba(255, 255, 255, 0.04) 0 2px, transparent 2px 7px),
+    radial-gradient(ellipse at 20% 15%, var(--wood-highlight) 0%, var(--wood) 40%, var(--wood-dark) 100%);
+  box-shadow:
+    inset 0 2px 0 rgba(255, 255, 255, 0.14),
+    inset 0 -10px 24px rgba(0, 0, 0, 0.55);
+  position: relative;
+}
+
+/* inner gold bevel ring between the walnut and the felt */
+.rail::after {
+  content: "";
+  position: absolute;
+  inset: clamp(6px, 1.1vh, 16px);
+  border-radius: clamp(8px, 1.4vh, 16px);
+  border: 1.5px solid var(--gold-line);
+  box-shadow:
+    0 0 0 1px rgba(0, 0, 0, 0.4),
+    inset 0 1px 0 rgba(255, 255, 255, 0.35),
+    inset 0 -2px 4px rgba(0, 0, 0, 0.3);
+  pointer-events: none;
+}
+
+body.page-fit .rail {
+  height: 100%;
+  min-height: 0;
+}
+
+.felt {
+  position: relative;
+  min-height: 100%;
+  display: flex;
+  flex-direction: column;
+  border-radius: clamp(6px, 1vh, 12px);
+  padding: clamp(8px, 1.8vh, 24px) clamp(10px, 3vw, 28px);
+  background: radial-gradient(
+    ellipse at 30% 20%,
+    var(--felt-bright) 0%,
+    var(--felt-mid) 45%,
+    var(--felt-dark) 100%
+  );
+  box-shadow:
+    inset 0 0 140px rgba(0, 0, 0, 0.55),
+    inset 0 16px 46px rgba(0, 0, 0, 0.4);
+  overflow: hidden;
+}
+
+/* felt fabric grain -- a turbulence-noise data URI, blended low-opacity */
+.felt::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.55'/%3E%3C/svg%3E");
+  background-size: 140px 140px;
+  mix-blend-mode: overlay;
+  opacity: 0.04;
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* soft spotlight glowing behind the board */
+.felt__spotlight {
+  position: absolute;
+  left: 50%;
+  top: 46%;
+  width: min(80vw, 900px);
+  height: min(80vw, 900px);
+  transform: translate(-50%, -50%);
+  background: radial-gradient(circle, rgba(255, 246, 214, 0.16), transparent 60%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+body.page-fit .felt {
+  height: 100%;
+}
+
+.app {
+  position: relative;
+  z-index: 1;
+  max-width: 960px;
+  width: 100%;
+  min-height: 100%;
+  margin: 0 auto;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+}
+
+body.page-fit .app {
+  height: 100%;
+  min-height: 0;
+}
+
+/* ============================================================
+   Title -- large elegant serif, metallic gold, ornamental rule
+   ============================================================ */
+.app__header {
+  flex: 0 0 auto;
+  margin-bottom: clamp(6px, 1.6vh, 22px);
+}
+
+.app__title {
+  font-family: var(--font-title);
+  font-weight: 700;
+  font-size: clamp(1.4rem, min(6.4vw, 4.6vh), 3.4rem);
+  margin: 0;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+  background: linear-gradient(
+    180deg,
+    var(--title-gold-hi) 0%,
+    var(--title-gold-top) 22%,
+    var(--title-gold-mid) 55%,
+    var(--title-gold-bottom) 80%,
+    var(--title-gold-low) 100%
+  );
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  text-shadow:
+    0 -1px 0 rgba(255, 255, 240, 0.85),
+    0 1px 1px rgba(120, 70, 8, 0.35);
+  filter: drop-shadow(0 0 10px rgba(255, 217, 118, 0.3));
+}
+
+.app__title-link {
+  position: relative;
+  text-decoration: none;
+  display: inline-block;
+}
+
+/* sparkles + ornamental rule -- landing page only */
+.app__sparkle {
+  display: none;
+}
+
+.landing-page .app__sparkle {
+  display: inline-block;
+  position: absolute;
+  color: var(--gold-bright);
+  font-size: 1rem;
+  opacity: 0.8;
+  animation: twinkle 2.4s ease-in-out infinite;
+}
+
+.landing-page .app__sparkle--left {
+  left: -22px;
+  top: 2px;
+  animation-delay: 0.3s;
+}
+
+.landing-page .app__sparkle--right {
+  right: -22px;
+  bottom: 2px;
+  font-size: 0.8rem;
+}
+
+@keyframes twinkle {
+  0%, 100% { opacity: 0.3; transform: scale(0.85); }
+  50% { opacity: 0.9; transform: scale(1.1); }
+}
+
+.app__rule {
+  display: none;
+}
+
+.landing-page .app__rule {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  width: min(60%, 220px);
+  margin: 10px auto 0;
+}
+
+.landing-page .app__rule span {
+  flex: 1;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--gold-line), transparent);
+}
+
+.landing-page .app__rule i {
+  font-style: normal;
+  font-size: 0.75rem;
+  color: var(--gold);
+  opacity: 0.8;
+}
+
+.messages {
+  flex: 0 0 auto;
+  list-style: none;
+  padding: 0;
+  margin: 0 0 12px;
+}
+
+.message {
+  padding: 9px 16px;
+  border-radius: 8px;
+  font-size: 0.9rem;
+  font-weight: 500;
+}
+
+.message--error {
+  background: rgba(122, 31, 43, 0.4);
+  border: 1px solid var(--wine);
+  color: #f6cdd2;
+}
+
+.app__main {
+  flex: 1 1 auto;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+}
